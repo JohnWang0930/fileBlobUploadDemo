@@ -1,0 +1,19 @@
+{
+  "name": "fileblobuploaddemo",
+  "version": "1.0.0",
+  "description": "#### 最近工作中碰到做纯前端架构的重构，原油的前端php中间层要去掉，导致php中原有的文件上传不能用，需要重新走后端的文件上传接口，所以这两天抽时间看了一下文件上传相关的知识，这个demo是用来验证一些api的。",
+  "main": "index.js",
+  "scripts": {
+    "runServer": "node ./server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zhen_wang",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "body-parser": "^1.18.3",
+    "fs": "0.0.1-security"
+  }
+}

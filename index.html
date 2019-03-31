@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="file" onchange="fileUpload(event)"></input>
+
+    <script>
+        async function  fileUpload(e) {
+            const fileArr = e.target.files // 获取文件列表
+            const retArr = [] // 最终要上传的文件二进制列表
+            for (const file of fileArr) {
+                const arrBuff = await readAsArrBuffer(file)
+                const uint8 = new Uint8Array(arrBuff)
+                retArr.push(uint8.toString())
+            }
+            sendFiles(retArr)
+
+        }
+        function sendFiles(filesOctetArr){ // 用于将文件二进制流数组上传
+            filesOctetArr.forEach(i=>{
+                const xhr = new XMLHttpRequest()
+                xhr.open('POST', '/fileUpload')
+                xhr.setRequestHeader('Content-Type', 'application/octet-stream')
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState !== XMLHttpRequest.DONE) {
+                        return
+                    }
+                    console.log(xhr.response)
+                }
+                xhr.send(i)
+            })
+        }
+        function readAsArrBuffer(blob) { // 用于把blob或者file传入 返回arrayBuffer对象
+            if (!blob) {
+                return console.log(没有传入blob文件)
+            }
+            return new Promise(resolve=>{
+                const reader = new FileReader()
+                let arrBuff = null
+                reader.onload = function (e) {
+                    arrBuff = e.target.result
+                    resolve(arrBuff)
+                }
+                reader.readAsArrayBuffer(blob)
+            })
+        }
+    </script>
+</body>
+
+</html>
