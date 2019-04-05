@@ -22,8 +22,10 @@ function bufferToFile(buffer,res){
     if (!buffer){
         return console.log('没有buffer对象传入')
     }
+    const str = buffer.toString()
+    console.log(str)
     //写入文件
-    fs.writeFile('./1.jpg', buffer, function (err) {
+    fs.writeFile('./1.jpg', Buffer.from(str.split(',')), function (err) {
         if (err) {
             res.send(err);
         } else {

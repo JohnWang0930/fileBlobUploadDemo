@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+    
     <input type="file" onchange="fileUpload(event)"></input>
 
     <script>
@@ -20,6 +20,7 @@
                 const arrBuff = await readAsArrBuffer(file)
                 const uint8 = new Uint8Array(arrBuff)
                 retArr.push(uint8.toString())
+                // retArr.push(arrBuff)
             }
             sendFiles(retArr)
 
